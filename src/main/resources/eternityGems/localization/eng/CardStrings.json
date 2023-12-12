@@ -1,0 +1,30 @@
+{
+  "${modID}:PowerRush": {
+    "NAME": "Power Rush",
+    "DESCRIPTION": "Return a #yPower from your discard pile to your hand. NL If you do, gain [E] . "
+  },
+  "${modID}:ManipulateSpace": {
+    "NAME": "Manipulate Space",
+    "DESCRIPTION": "Exhaust your hand. NL You may put cards from your exhaust pile into your hand for each card Exhausted."
+  },
+  "${modID}:WarpReality": {
+    "NAME": "Warp Reality",
+    "DESCRIPTION": "Add a chosen card to your hand. NL It costs 0 this turn and has Exhaust."
+  },
+  "${modID}:EmboldenSoul": {
+    "NAME": "Embolden Soul",
+    "DESCRIPTION": "Gain !M! Regeneration."
+  },
+  "${modID}:BefuddleMind": {
+    "NAME": "Befuddle Mind",
+    "DESCRIPTION": "Target enemy is stunned and is damaged for their attack intent amount."
+  },
+  "${modID}:EmpowerMind": {
+    "NAME": "Empower Mind",
+    "DESCRIPTION": "Gain !M! [E] ."
+  },
+  "${modID}:RewindTime": {
+    "NAME": "Rewind Time",
+    "DESCRIPTION": "Return the top 5 cards in your discard pile to your hand. NL They cost 1 this turn."
+  }
+}

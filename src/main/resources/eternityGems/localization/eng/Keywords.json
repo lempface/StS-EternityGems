@@ -1,0 +1,18 @@
+[
+  {
+    "PROPER_NAME": "Eternity",
+    "NAMES": [
+      "eternity"
+    ],
+    "DESCRIPTION": "If you have X Eternity Gems, add the following benefit."
+  },
+  {
+    "PROPER_NAME": "Multiword Keyword",
+    "NAMES": [
+      "multiword keyword",
+      "multiword_keyword",
+      "multiword_keywords"
+    ],
+    "DESCRIPTION": "Make sure the first element in NAMES has no underscores. The rest should use _ in the place of spaces. In card text, you'll use the underscore versions."
+  }
+]
