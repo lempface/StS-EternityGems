@@ -1,7 +1,7 @@
 {
   "${modID}:PowerRush": {
     "NAME": "Power Rush",
-    "DESCRIPTION": "Return a #yPower from your discard pile to your hand. NL If you do, gain [E] . "
+    "DESCRIPTION": "Return a Power from your discard pile to your hand. NL If you do, gain [E] . "
   },
   "${modID}:ManipulateSpace": {
     "NAME": "Manipulate Space",
