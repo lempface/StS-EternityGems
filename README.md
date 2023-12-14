@@ -20,7 +20,7 @@
 | Manipulate Space | 1    | Exhaust your hand. <br /> You may put cards from your exhaust pile into your hand for each card Exhausted. <br /> Exhaust | Reduced Cost: 0     |
 | Power Rush | 0    | Return a Power from your discard pile to your hand. <br /> If you do, gain 1 Energy.                                      | Add Retain          |
 | Rewind Time | 1    | Return the top 5 cards in your discard pile to your hand. <br /> They cost 1 this turn. <br /> Exhaust                    | Reduced Cost: 0     |
-| Twist Aether | 1 | Conjure 1. | Reduced Cost: 0 |
+| Twist Aether | 1 | Conjure 1. <br /> Exhaust.                                                                                                | Reduced Cost: 0 |
 | Warp Reality | 1    | Add a card from the Inevitable pile to your hand. <br /> It costs 0 this combat.                                          | Reduced Cost: 0     |
 
 # Keywords
