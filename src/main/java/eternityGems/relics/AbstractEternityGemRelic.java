@@ -16,6 +16,7 @@ public abstract class AbstractEternityGemRelic extends BaseRelic {
     private float xOffset = 524.0F;
     private float xBeforeLeftRender = 1100.0F;
     protected AbstractCard cardToPreview;
+    protected AbstractCard cardToPreview2;
     public AbstractEternityGemRelic(String id, String imageName, AbstractCard.CardColor pool, RelicTier tier, LandingSound sfx) {
         super(id, imageName, pool, tier, sfx);
     }
@@ -30,8 +31,17 @@ public abstract class AbstractEternityGemRelic extends BaseRelic {
     public void renderTip(SpriteBatch sb) {
         this.cardToPreview.current_y = InputHelper.mY + yOffset * Settings.scale;
         this.cardToPreview.drawScale = 0.8F;
+
+        if (cardToPreview2 != null) {
+            this.cardToPreview2.current_y = InputHelper.mY + (yOffset - 320.0f) * Settings.scale;
+            this.cardToPreview2.drawScale = 0.8F;
+        }
+
         if (InputHelper.mX < xBeforeLeftRender * Settings.scale) {
             this.cardToPreview.current_x = InputHelper.mX + xOffset * Settings.scale;
+            if (cardToPreview2 != null) {
+                this.cardToPreview2.current_x = InputHelper.mX + xOffset * Settings.scale;
+            }
             if (CardCrawlGame.mainMenuScreen.screen == MainMenuScreen.CurScreen.RELIC_VIEW) {
                 TipHelper.queuePowerTips(180.0F * Settings.scale, Settings.HEIGHT * 0.7F, this.tips);
             } else if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.SHOP && this.tips.size() > 2 &&
@@ -47,10 +57,15 @@ public abstract class AbstractEternityGemRelic extends BaseRelic {
         } else {
             TipHelper.queuePowerTips(InputHelper.mX - 350.0F * Settings.scale, InputHelper.mY - 30.0F * Settings.scale, this.tips);
             this.cardToPreview.current_x = InputHelper.mX + (-xOffset + 30.0f) * Settings.scale;
+            if (cardToPreview2 != null) {
+                this.cardToPreview2.current_x = InputHelper.mX + (-xOffset + 30.0f) * Settings.scale;
+            }
         }
 
-
         this.cardToPreview.render(sb);
+        if (cardToPreview2 != null) {
+            cardToPreview2.render(sb);
+        }
     }
 
 

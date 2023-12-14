@@ -3,42 +3,42 @@
     "NAME": "Power Gem",
     "FLAVOR": "One of the 6 eternity gems. The power gem grants the wielder access to all power and energy to have ever existed.",
     "DESCRIPTIONS": [
-      "Power cards are played to your discard pile and cost 1 additional [E] . NL Gain a #yPower #yRush card."
+      "Power cards are played to your discard pile and cost 1 additional [E] . NL Add a #yPower #yRush card to your deck."
     ]
   },
   "${modID}:SpaceGem": {
     "NAME": "Space Gem",
     "FLAVOR": "One of the 6 eternity gems. The space gem grants the wielder absolute control over space itself.",
     "DESCRIPTIONS": [
-      "After you #yExhaust 20 cards, you may remove a card from your deck at the end of combat. NL Gain a #yManipulate #ySpace card."
+      "After you #yExhaust 20 cards, you may remove a card from your deck at the end of combat. NL Add a #yManipulate #ySpace card to your deck."
     ]
   },
   "${modID}:RealityGem": {
     "NAME": "Reality Gem",
     "FLAVOR": "One of the 6 eternity gems. The reality gem grants the wielder user absolute control over the fabric of reality itself.",
     "DESCRIPTIONS": [
-      "Upon pickup, choose 3 class cards. NL Gain a #yWarp #yReality card."
+      "Every 3 combats #y${modID}:Conjure 1. NL Add a #yWarp #yReality card to your deck. NL Add a #yTwist #yAether card to your deck."
     ]
   },
   "${modID}:SoulGem": {
     "NAME": "Soul Gem",
     "FLAVOR": "One of the 6 eternity gems. The soul gem grants the wielder the ability to manipulate the soul.",
     "DESCRIPTIONS": [
-      "Every time you #yExhaust 3 cards, gain 1 #yRegeneration. NL Gain a #yEmbolden #ySoul card."
+      "Every time you #yExhaust 3 cards, gain 1 #yRegeneration. NL Add a #yEmbolden #ySoul card to your deck."
     ]
   },
   "${modID}:MindGem": {
     "NAME": "Mind Gem",
     "FLAVOR": "One of the 6 eternity gems. The mind gem grants the wielder complete control over the hearts and minds of others.",
     "DESCRIPTIONS": [
-      "At the start of each combat, add an #yEmpower #yMind into your hand. NL Gain a #yBefuddle #yMind card."
+      "At the start of each combat, add an #yEmpower #yMind into your hand. NL Add a #yBefuddle #yMind card to your deck."
     ]
   },
   "${modID}:TimeGem": {
     "NAME": "Time Gem",
     "FLAVOR": "One of the 6 eternity gems. The mind gem grants the wielder absolute control over time.",
     "DESCRIPTIONS": [
-      "Whenever you have no cards in hand during your turn, draw the bottom card of your discard pile. NL Gain a #yRewind #yTime card."
+      "Whenever you have no cards in hand during your turn, draw the bottom card of your discard pile. NL Add a #yRewind #yTime card to your deck."
     ]
   }
 }

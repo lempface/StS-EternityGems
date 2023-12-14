@@ -1,5 +1,8 @@
 package eternityGems.util;
 
+import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+
 public class GeneralUtils {
     public static String arrToString(Object[] arr) {
         if (arr == null)
@@ -18,4 +21,5 @@ public class GeneralUtils {
     public static String removePrefix(String ID) {
         return ID.substring(ID.indexOf(":") + 1);
     }
+
 }

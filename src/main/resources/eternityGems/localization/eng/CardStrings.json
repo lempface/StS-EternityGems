@@ -9,7 +9,7 @@
   },
   "${modID}:WarpReality": {
     "NAME": "Warp Reality",
-    "DESCRIPTION": "Add a chosen card to your hand. NL It costs 0 this turn and has Exhaust."
+    "DESCRIPTION": "Add a card from the Inevitable pile to your hand. NL It costs 0 this combat."
   },
   "${modID}:EmboldenSoul": {
     "NAME": "Embolden Soul",
@@ -26,5 +26,9 @@
   "${modID}:RewindTime": {
     "NAME": "Rewind Time",
     "DESCRIPTION": "Return the top 5 cards in your discard pile to your hand. NL They cost 1 this turn."
+  },
+  "${modID}:TwistAether": {
+    "NAME": "Twist Aether",
+    "DESCRIPTION": "${modID}:Conjure !M!."
   }
 }

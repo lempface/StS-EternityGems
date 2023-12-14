@@ -5,6 +5,7 @@ import basemod.BaseMod;
 import basemod.interfaces.*;
 import eternityGems.cards.BaseCard;
 import eternityGems.relics.BaseRelic;
+import eternityGems.ui.InevitableTopPanelItem;
 import eternityGems.util.GeneralUtils;
 import eternityGems.util.KeywordInfo;
 import eternityGems.util.TextureLoader;
@@ -32,7 +33,8 @@ public class EternityGems implements
         EditKeywordsSubscriber,
         PostInitializeSubscriber,
         EditCardsSubscriber,
-        EditRelicsSubscriber {
+        EditRelicsSubscriber,
+        PostDungeonUpdateSubscriber {
     public static ModInfo info;
     public static String modID; //Edit your pom.xml to change this
     static { loadModInfo(); }
@@ -62,6 +64,12 @@ public class EternityGems implements
         //Set up the mod information displayed in the in-game mods menu.
         //The information used is taken from your pom.xml file.
         BaseMod.registerModBadge(badgeTexture, info.Name, GeneralUtils.arrToString(info.Authors), info.Description, null);
+        BaseMod.addTopPanelItem(new InevitableTopPanelItem());
+    }
+
+    @Override
+    public void receivePostDungeonUpdate() {
+
     }
 
     /*----------Localization----------*/

@@ -17,7 +17,7 @@ import eternityGems.util.CardStats;
 public class BefuddleMind extends BaseCard
 {
     public static final String ID = makeID("BefuddleMind");
-    private static final CardStats info = new CardStats(CardColor.COLORLESS, CardType.SKILL, CardRarity.SPECIAL, CardTarget.ENEMY, 3);
+    private static final CardStats info = new CardStats(CardColor.COLORLESS, CardType.SKILL, CardRarity.SPECIAL, CardTarget.ENEMY, 2);
 
     public BefuddleMind() {
         super(ID, info);
@@ -27,7 +27,7 @@ public class BefuddleMind extends BaseCard
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(2);
+            upgradeBaseCost(1);
         }
     }
 

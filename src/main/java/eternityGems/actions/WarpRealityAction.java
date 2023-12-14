@@ -1,8 +1,9 @@
 package eternityGems.actions;
 
-import basemod.cardmods.ExhaustMod;
-import basemod.helpers.CardModifierManager;
+import com.evacipated.cardcrawl.mod.stslib.actions.common.FetchAction;
+import com.evacipated.cardcrawl.mod.stslib.actions.common.MoveCardsAction;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.unique.EnlightenmentAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
@@ -33,17 +34,25 @@ public class WarpRealityAction extends AbstractGameAction {
 
             if (AbstractDungeon.player.hasRelic(RealityGem.ID))
             {
-                RealityGem relic = (RealityGem) AbstractDungeon.player.getRelic(RealityGem.ID);
-                AbstractDungeon.gridSelectScreen.open(relic.warpRealityCards, 1, "Select a Card to add to Your Hand", false);
+                RealityGem gem = (RealityGem) AbstractDungeon.player.getRelic(RealityGem.ID);
+                AbstractDungeon.gridSelectScreen.open(gem.inevitablePile, 1, "Select a Card to add to Your Hand", false);
             }
             tickDuration();
             return;
         }
         if (!AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {
-            for (AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards) {
-                c.setCostForTurn(0);
-                CardModifierManager.addModifier(c, new ExhaustMod());
-                this.p.hand.addToHand(c);
+            for (AbstractCard card : AbstractDungeon.gridSelectScreen.selectedCards) {
+                RealityGem gem = (RealityGem) AbstractDungeon.player.getRelic(RealityGem.ID);
+                addToTop(
+                    new FetchAction(
+                        gem.inevitablePile,
+                        c -> c.uuid == card.uuid,
+                        1,
+                        list -> list.forEach(c -> {
+                            addToBot(new SetCardCostForCombatAction(c, 0));
+                        })
+                    )
+                );
             }
             AbstractDungeon.gridSelectScreen.selectedCards.clear();
             this.p.hand.refreshHandLayout();

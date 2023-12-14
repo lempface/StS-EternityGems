@@ -3,17 +3,19 @@ package eternityGems.relics;
 import basemod.abstracts.CustomSavable;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
-import eternityGems.cards.colorless.WarpReality;
+import eternityGems.actions.ConjureAction;
+import eternityGems.cards.colorless.*;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static com.megacrit.cardcrawl.events.AbstractEvent.logMetricObtainCard;
 import static eternityGems.EternityGems.makeID;
+import static eternityGems.actions.ConjureAction.getSelectionSet;
 
 public class RealityGem extends AbstractEternityGemRelic implements CustomSavable<ArrayList<String>>
 {
@@ -22,11 +24,13 @@ public class RealityGem extends AbstractEternityGemRelic implements CustomSavabl
     private static final RelicTier RARITY = RelicTier.BOSS;
     private static final LandingSound SOUND = LandingSound.HEAVY;
 
-    public final CardGroup warpRealityCards = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
     public RealityGem() {
         super(ID, RARITY, SOUND);
         this.cardToPreview = new WarpReality();
+        this.cardToPreview2 = new TwistAether();
     }
+
+    public CardGroup inevitablePile = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
 
     @Override
     public String getUpdatedDescription() {
@@ -35,74 +39,87 @@ public class RealityGem extends AbstractEternityGemRelic implements CustomSavabl
     @Override
     public void onEquip()
     {
+        this.counter = 0;
+
+        if (AbstractDungeon.player.chosenClass != AbstractPlayer.PlayerClass.DEFECT && AbstractDungeon.player.masterMaxOrbs == 0)
+            AbstractDungeon.player.masterMaxOrbs = 1;
+
         AbstractCard warpReality = new WarpReality();
         logMetricObtainCard("RealityGem", "Relic", warpReality);
         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(warpReality, Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F));
+        AbstractCard twistAether = new TwistAether();
+        logMetricObtainCard("TwistAether", "Relic", twistAether);
+        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(twistAether, Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F));
+    }
 
+    private boolean shouldSelect;
+    private boolean isSelecting;
+
+    @Override
+    public void update()
+    {
+        super.update();
+        if (shouldSelect) {
+            selectCards();
+        }
+        if (AbstractDungeon.gridSelectScreen.selectedCards.size() == 1 && isSelecting)
+        {
+            RealityGem gem = (RealityGem) AbstractDungeon.player.getRelic(RealityGem.ID);
+            for (AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards)
+                gem.inevitablePile.addToTop(c.makeCopy());
+
+            AbstractDungeon.gridSelectScreen.selectedCards.clear();
+
+            isSelecting = false;
+        }
+
+    }
+
+    private void selectCards()
+    {
+        isSelecting = true;
         if (AbstractDungeon.isScreenUp) {
             AbstractDungeon.dynamicBanner.hide();
             AbstractDungeon.overlayMenu.cancelButton.hide();
             AbstractDungeon.previousScreen = AbstractDungeon.screen;
         }
-        (AbstractDungeon.getCurrRoom()).phase = AbstractRoom.RoomPhase.INCOMPLETE;
 
-        CardGroup cardPool = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-
-        AbstractDungeon.commonCardPool.group.stream().filter(x -> x.isSeen).forEach(x -> cardPool.addToTop(x.makeCopy()));
-        AbstractDungeon.uncommonCardPool.group.stream().filter(x -> x.isSeen).forEach(x -> cardPool.addToTop(x.makeCopy()));
-        AbstractDungeon.rareCardPool.group.stream().filter(x -> x.isSeen).forEach(x -> cardPool.addToTop(x.makeCopy()));
-
-        CardGroup selectionCardGroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-
-        for (int i = 0; i < 12; i++)
-        {
-            AbstractCard card = cardPool.getRandomCard(AbstractDungeon.cardRng);
-            selectionCardGroup.addToTop(card);
-            cardPool.removeCard(card);
-        }
-
-        for (int i = 0; i < 3; i++)
-        {
-            AbstractCard card = cardPool.getRandomCard(AbstractDungeon.cardRng, AbstractCard.CardRarity.RARE);
-            selectionCardGroup.addToTop(card);
-            cardPool.removeCard(card);
-        }
-
-        selectionCardGroup.group.forEach((x) -> {
-            if (x.canUpgrade())
-                x.upgrade();
-        });
-
-        AbstractDungeon.gridSelectScreen.open(selectionCardGroup, 3, "Select 3 Cards to add to your Reality Gem.", false);
+        AbstractDungeon.gridSelectScreen.open(getSelectionSet(), 1, "Select a Card to add to the Inevitable pile.", false);
+        AbstractDungeon.gridSelectScreen.peekButton.hide();
+        shouldSelect = false;
     }
 
-    public void update() {
-        super.update();
-        if (AbstractDungeon.gridSelectScreen.selectedCards.size() == 3)
+    @Override
+    public void onVictory()
+    {
+        counter += 1;
+        if (counter == 3)
         {
-            for (AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards)
-                warpRealityCards.addToTop(c);
-
-            AbstractDungeon.gridSelectScreen.selectedCards.clear();
-            (AbstractDungeon.getCurrRoom()).phase = AbstractRoom.RoomPhase.COMPLETE;
+            this.flash();
+            shouldSelect = true;
+            counter = 0;
         }
     }
 
     @Override
     public ArrayList<String> onSave() {
-        return warpRealityCards.group.stream().map(x -> x.cardID).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> cardStrings = inevitablePile.group.stream().map(x -> x.cardID).collect(Collectors.toCollection(ArrayList::new));
+        return cardStrings;
     }
 
     @Override
     public void onLoad(ArrayList<String> strings) {
         CardGroup cardPool = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
 
-        AbstractDungeon.commonCardPool.group.stream().filter(x -> x.isSeen).forEach(x -> cardPool.addToTop(x.makeCopy()));
-        AbstractDungeon.uncommonCardPool.group.stream().filter(x -> x.isSeen).forEach(x -> cardPool.addToTop(x.makeCopy()));
-        AbstractDungeon.rareCardPool.group.stream().filter(x -> x.isSeen).forEach(x -> cardPool.addToTop(x.makeCopy()));
+        cardPool.group.addAll(ConjureAction.getDefaultCardPool());
 
         ArrayList<AbstractCard> cards = cardPool.group.stream().filter(x -> strings.contains(x.cardID)).collect(Collectors.toCollection(ArrayList::new));
 
-        warpRealityCards.group.addAll(cards);
+        cards.forEach((x) -> {
+            if (x.canUpgrade())
+                x.upgrade();
+        });
+
+        inevitablePile.group.addAll(cards);
     }
 }

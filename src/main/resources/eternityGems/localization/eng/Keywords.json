@@ -1,10 +1,10 @@
 [
   {
-    "PROPER_NAME": "Eternity",
+    "PROPER_NAME": "Conjure",
     "NAMES": [
-      "eternity"
+      "conjure"
     ],
-    "DESCRIPTION": "If you have X Eternity Gems, add the following benefit."
+    "DESCRIPTION": "Select a card from a random pool and put it in the Inevitable pile."
   },
   {
     "PROPER_NAME": "Multiword Keyword",

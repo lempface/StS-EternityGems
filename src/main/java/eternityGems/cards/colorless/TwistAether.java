@@ -2,20 +2,22 @@ package eternityGems.cards.colorless;
 
 import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
-import eternityGems.actions.WarpRealityAction;
-import eternityGems.cards.BaseCard;
-import eternityGems.util.CardStats;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import eternityGems.actions.ConjureAction;
+import eternityGems.cards.BaseCard;
+import eternityGems.util.CardStats;
 
-public class WarpReality extends BaseCard
+public class TwistAether extends BaseCard
 {
-    public static final String ID = makeID("WarpReality");
+    public static final String ID = makeID("TwistAether");
     private static final CardStats info = new CardStats(CardColor.COLORLESS, CardType.SKILL, CardRarity.SPECIAL, CardTarget.NONE, 1);
 
-    public WarpReality() {
+    public TwistAether()
+    {
         super(ID, info);
+        CardModifierManager.addModifier(this, new ExhaustMod());
+        this.magicNumber = this.baseMagicNumber = 1;
     }
 
     public void upgrade() {
@@ -27,10 +29,6 @@ public class WarpReality extends BaseCard
 
     @Override
     public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
-        addToBot(new WarpRealityAction(false));
-    }
-
-    public AbstractCard makeCopy() {
-        return new WarpReality();
+        addToTop(new ConjureAction());
     }
 }
