@@ -17,7 +17,7 @@ public class TwistAether extends BaseCard
     {
         super(ID, info);
         CardModifierManager.addModifier(this, new ExhaustMod());
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber = 2;
     }
 
     public void upgrade() {
